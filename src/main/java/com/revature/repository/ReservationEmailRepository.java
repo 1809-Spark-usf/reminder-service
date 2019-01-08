@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.revature.model.ReservationEmail;
 
-
-
 /**
  * The Interface ReservationEmailRepository.
  * Connection between the business logic layer

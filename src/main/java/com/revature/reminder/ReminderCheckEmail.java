@@ -16,6 +16,8 @@ import com.revature.service.EmailRepositoryService;
  * of 8:00am-5:00pm/mon-fri it will check 
  * the database for any reservation
  * reminders that need to be sent.
+ * 
+ *  @author 1811-Java-Nick | 01/08/2019
  */
 @Service
 public class ReminderCheckEmail {

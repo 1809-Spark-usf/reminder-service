@@ -10,7 +10,8 @@ import javax.persistence.Table;
 /**
  * The ReservationEmail Class
  * Used to transfer information needed
- * by the RMSEmailService in an object
+ * by the RMSEmailService in an object.
+ * 
  * @author Austin D. | 1811-Java-Nick 1/3/19 
  *
  */

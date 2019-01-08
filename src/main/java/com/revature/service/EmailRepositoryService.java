@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.revature.model.ReservationEmail;
 import com.revature.repository.ReservationEmailRepository;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class EmailRepositoryService.
  * Service design only to talk directly 
