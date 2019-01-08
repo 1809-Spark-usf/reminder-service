@@ -48,6 +48,18 @@ public class ReminderCheckEmail {
 		System.out.println("lets se if it checks every minute "+ i++);
 		
 		/*To be added:
-		 * for loop to send the list of emails to the email microservice*/
+	
+		 * sendEmailToService(emails);
+		 * */
 	}
+	/**
+	 * To be added:
+	 * for loop to send the list of emails to the email microservice
+	 * at the send reminder endpoint
+	 * @param reservationEmail
+	 */
+	public void sendEmailToEmailService(List<ReservationEmail> reservationEmail) {
+		/*Add in the for loop*/
+	}
+	
 }

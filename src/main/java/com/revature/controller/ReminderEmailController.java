@@ -29,7 +29,7 @@ public class ReminderEmailController {
 	 * Send new email object.
 	 * Gets the ReservationEmail Object from the 
 	 * Email microservice, sets the reminder date
-	 * by substracting an hour or 24 hours to the object.
+	 * by subtracting an hour or 24 hours to the object.
 	 * Then sends the new object to the repository service
 	 * to be saved in the database.
 	 *
