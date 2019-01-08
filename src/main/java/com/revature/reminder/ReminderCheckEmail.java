@@ -28,6 +28,7 @@ public class ReminderCheckEmail {
 	
 	/** The i. */
 	public Integer i = 0;
+	
 	/**
 	 * Check for appointment.
 	 * A method with a cron scheduler that
@@ -38,11 +39,15 @@ public class ReminderCheckEmail {
 	 */
 	@Scheduled(cron = "0 0/1 8-17 ? * 1-6")
 	public void checkForAppointment() {
+		
 		/* goes to the repository service to get all items in the database */
 		List<ReservationEmail> emails= emailRepositoryService.getAllByTime(LocalDateTime.now());
 		System.out.println(emails);
 		
 		/* Displays how many time this has run */
-		System.out.println("lets se if it checks every minute "+ i++);;
+		System.out.println("lets se if it checks every minute "+ i++);
+		
+		/*To be added:
+		 * for loop to send the list of emails to the email microservice*/
 	}
 }
