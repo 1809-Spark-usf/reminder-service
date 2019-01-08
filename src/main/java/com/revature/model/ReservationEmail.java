@@ -46,6 +46,18 @@ public class ReservationEmail {
 	/**The time before the startTime that the user wants a reminder*/
 	@Column(name="reminder_time")
 	private int reminderTime;
+	
+	/**The start time of the reservation*/
+	@Column(name="reminder_date")
+	private LocalDateTime reminder_date;
+
+	public LocalDateTime getReminder_date() {
+		return reminder_date;
+	}
+
+	public void setReminder_date(LocalDateTime reminder_date) {
+		this.reminder_date = reminder_date;
+	}
 
 	public int getReminderTime() {
 		return reminderTime;
@@ -60,11 +72,12 @@ public class ReservationEmail {
 	}
 	
 
+
 	@Override
 	public String toString() {
 		return "ReservationEmail [reservationId=" + reservationId + ", email=" + email + ", startTime=" + startTime
 				+ ", endTime=" + endTime + ", buildingName=" + buildingName + ", resourceName=" + resourceName
-				+ ", reminderTime=" + reminderTime + "]";
+				+ ", reminderTime=" + reminderTime + ", reminder_date=" + reminder_date + "]";
 	}
 
 	public ReservationEmail(int reservationId, String email, LocalDateTime startTime, LocalDateTime endTime,

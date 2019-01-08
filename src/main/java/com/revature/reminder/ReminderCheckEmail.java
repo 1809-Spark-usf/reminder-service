@@ -1,5 +1,6 @@
 package com.revature.reminder;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,11 @@ public class ReminderCheckEmail {
 	 */
 	@Scheduled(cron = "0 0/1 8-17 ? * 1-6")
 	public void checkForAppointment() {
-		List<ReservationEmail> emails= emailRepositoryService.getAll();
+		/* goes to the repository service to get all items in the database */
+		List<ReservationEmail> emails= emailRepositoryService.getAllByTime(LocalDateTime.now());
 		System.out.println(emails);
+		
+		/* Displays how many time this has run */
 		System.out.println("lets se if it checks every minute "+ i++);;
 	}
 }
