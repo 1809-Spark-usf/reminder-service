@@ -1,12 +1,17 @@
 package com.revature.reminder;
 
+import java.net.URI;
 import java.time.LocalDateTime;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.revature.model.ReservationEmail;
 import com.revature.service.EmailRepositoryService;
 
@@ -21,6 +26,10 @@ import com.revature.service.EmailRepositoryService;
  */
 @Service
 public class ReminderCheckEmail {
+	
+	/*change url to reminder endpoint*/
+	@Value("${RMS_EMAIL_URL:http://localhost:8080/email/}")
+	String emailUri;
 	
 	/** The reservation email repository. */
 	@Autowired
@@ -47,19 +56,31 @@ public class ReminderCheckEmail {
 		/* Displays how many time this has run */
 		System.out.println("lets se if it checks every minute "+ i++);
 		
-		/*To be added:
-	
-		 * sendEmailToService(emails);
-		 * */
+		sendEmailToEmailService(emails);
 	}
 	/**
-	 * To be added:
-	 * for loop to send the list of emails to the email microservice
-	 * at the send reminder endpoint
+	 * send Email Object to Email microservice.
+	 * This method grabs a list of reservation email 
+	 * objects and sends it to the email microservice
+	 * so it can become an AWS email object and be sent to 
+	 * the appropriate user.
+	 * 
 	 * @param reservationEmail
 	 */
+	@HystrixCommand(fallbackMethod = "emailFallback")
 	public void sendEmailToEmailService(List<ReservationEmail> reservationEmail) {
-		/*Add in the for loop*/
+		
+		Iterator<ReservationEmail> i = reservationEmail.iterator();
+		
+		while(i.hasNext()) {
+			new RestTemplate().postForLocation(URI.create(emailUri + "sendreminder"), i.next());
+			/* Add delete the object from database so it wont constantly send and email every minute
+			 * make another method*/
+		}
+		
+	}
+	@SuppressWarnings("unused")
+	private void emailFallback(ReservationEmail reservation) {
 	}
 	
 }
