@@ -63,4 +63,9 @@ public class EmailRepositoryService {
 		return reservationEmailRepository.findAllByTime(localDateTime);
 	}
 
+	public void deleteReminder(ReservationEmail reservationEmail) {
+		reservationEmailRepository.delete(reservationEmail);
+		
+	}
+
 }

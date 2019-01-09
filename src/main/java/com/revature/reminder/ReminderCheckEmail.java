@@ -18,7 +18,7 @@ import com.revature.service.EmailRepositoryService;
 /**
  * The Class ReminderCheckEmail.
  * Every minute between the time
- * of 8:00am-5:00pm/mon-fri it will check 
+ * of 8:00am-5:00pm/Mon-Fri it will check 
  * the database for any reservation
  * reminders that need to be sent.
  * 
@@ -27,7 +27,7 @@ import com.revature.service.EmailRepositoryService;
 @Service
 public class ReminderCheckEmail {
 	
-	/*change url to reminder endpoint*/
+	/** The email uri. */
 	@Value("${RMS_EMAIL_URL:http://localhost:8080/email/}")
 	String emailUri;
 	
@@ -42,7 +42,7 @@ public class ReminderCheckEmail {
 	 * Check for appointment.
 	 * A method with a cron scheduler that
 	 * for every minute starting at 8 am and 
-	 * ending at 5 pm (work days including Sunday),
+	 * ending at 5:00pm (work days including Sunday),
 	 * it will check the repository for any and all 
 	 * upcoming appointments. 
 	 */
@@ -58,14 +58,15 @@ public class ReminderCheckEmail {
 		
 		sendEmailToEmailService(emails);
 	}
+	
 	/**
-	 * send Email Object to Email microservice.
+	 * Send Email Object to Email microservice.
 	 * This method grabs a list of reservation email 
 	 * objects and sends it to the email microservice
 	 * so it can become an AWS email object and be sent to 
 	 * the appropriate user.
-	 * 
-	 * @param reservationEmail
+	 *
+	 * @param reservationEmail the reservation email
 	 */
 	@HystrixCommand(fallbackMethod = "emailFallback")
 	public void sendEmailToEmailService(List<ReservationEmail> reservationEmail) {
@@ -73,14 +74,32 @@ public class ReminderCheckEmail {
 		Iterator<ReservationEmail> i = reservationEmail.iterator();
 		
 		while(i.hasNext()) {
+			/*sends the reminder object to the the email microservice */
 			new RestTemplate().postForLocation(URI.create(emailUri + "sendreminder"), i.next());
-			/* Add delete the object from database so it wont constantly send and email every minute
-			 * make another method*/
+			/* Deletes the entity from the database because the email has been sent*/
+			deleteSentEmailObject(i.next());
 		}
 		
 	}
+	
+	/**
+	 * Email fallback.
+	 *
+	 * @param reservation the reservation
+	 */
 	@SuppressWarnings("unused")
 	private void emailFallback(ReservationEmail reservation) {
+	}
+	
+	
+	/**
+	 * Delete sent email object.
+	 *
+	 * @param reservation the reservation
+	 */
+	public void deleteSentEmailObject(ReservationEmail reservation) {
+		/* Deletes the entity from the database because the email has been sent*/
+		emailRepositoryService.deleteReminder(reservation);
 	}
 	
 }
