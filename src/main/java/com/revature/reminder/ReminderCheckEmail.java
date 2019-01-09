@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.revature.model.ReservationEmail;
+import com.revature.model.ReminderEmail;
 import com.revature.service.EmailRepositoryService;
 
 /**
@@ -50,7 +50,7 @@ public class ReminderCheckEmail {
 	public void checkForAppointment() {
 		
 		/* goes to the repository service to get all items in the database */
-		List<ReservationEmail> emails= emailRepositoryService.getAllByTime(LocalDateTime.now());
+		List<ReminderEmail> emails= emailRepositoryService.getAllByTime(LocalDateTime.now());
 		System.out.println(emails);
 		
 		/* Displays how many time this has run */
@@ -66,12 +66,12 @@ public class ReminderCheckEmail {
 	 * so it can become an AWS email object and be sent to 
 	 * the appropriate user.
 	 *
-	 * @param reservationEmail the reservation email
+	 * @param reminderEmail the reservation email
 	 */
 	@HystrixCommand(fallbackMethod = "emailFallback")
-	public void sendEmailToEmailService(List<ReservationEmail> reservationEmail) {
+	public void sendEmailToEmailService(List<ReminderEmail> reminderEmail) {
 		
-		Iterator<ReservationEmail> i = reservationEmail.iterator();
+		Iterator<ReminderEmail> i = reminderEmail.iterator();
 		
 		while(i.hasNext()) {
 			/*sends the reminder object to the the email microservice */
@@ -88,7 +88,7 @@ public class ReminderCheckEmail {
 	 * @param reservation the reservation
 	 */
 	@SuppressWarnings("unused")
-	private void emailFallback(ReservationEmail reservation) {
+	private void emailFallback(ReminderEmail reservation) {
 	}
 	
 	
@@ -97,7 +97,7 @@ public class ReminderCheckEmail {
 	 *
 	 * @param reservation the reservation
 	 */
-	public void deleteSentEmailObject(ReservationEmail reservation) {
+	public void deleteSentEmailObject(ReminderEmail reservation) {
 		/* Deletes the entity from the database because the email has been sent*/
 		emailRepositoryService.deleteReminder(reservation);
 	}

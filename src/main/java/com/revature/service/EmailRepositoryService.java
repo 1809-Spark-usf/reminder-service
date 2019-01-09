@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.revature.model.ReservationEmail;
-import com.revature.repository.ReservationEmailRepository;
+import com.revature.model.ReminderEmail;
+import com.revature.repository.ReminderEmailRepository;
 
 /**
  * The Class EmailRepositoryService.
@@ -21,7 +21,7 @@ public class EmailRepositoryService {
 
 	/** The reservation email repository. */
 	@Autowired
-	ReservationEmailRepository reservationEmailRepository;
+	ReminderEmailRepository reminderEmailRepository;
 	
 
 	
@@ -31,10 +31,10 @@ public class EmailRepositoryService {
 	 * the controller to save the reservation
 	 * email to the database.
 	 *
-	 * @param reservationEmail the reservation email object
+	 * @param reminderEmail the reservation email object
 	 */
-	public void saveNewEmail(ReservationEmail reservationEmail) {
-		reservationEmailRepository.save(reservationEmail);
+	public void saveNewEmail(ReminderEmail reminderEmail) {
+		reminderEmailRepository.save(reminderEmail);
 	}
 	
 	/**
@@ -45,9 +45,9 @@ public class EmailRepositoryService {
 	 *
 	 * @return the List of ReservationEmail objects in the DataBase
 	 */
-	public List<ReservationEmail> getAll(){
+	public List<ReminderEmail> getAll(){
 
-		return reservationEmailRepository.findAll();
+		return reminderEmailRepository.findAll();
 	}
 
 	/**
@@ -58,13 +58,13 @@ public class EmailRepositoryService {
 	 * @param localDateTime the local date time
 	 * @return the list of reservation email by time
 	 */
-	public List<ReservationEmail> getAllByTime(LocalDateTime localDateTime) {
+	public List<ReminderEmail> getAllByTime(LocalDateTime localDateTime) {
 		
-		return reservationEmailRepository.findAllByTime(localDateTime);
+		return reminderEmailRepository.findAllByTime(localDateTime);
 	}
 
-	public void deleteReminder(ReservationEmail reservationEmail) {
-		reservationEmailRepository.delete(reservationEmail);
+	public void deleteReminder(ReminderEmail reminderEmail) {
+		reminderEmailRepository.delete(reminderEmail);
 		
 	}
 

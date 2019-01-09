@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="Reservation_Email")
-public class ReservationEmail {
+public class ReminderEmail {
 	
 	/**The id of the reservation for reminder purposes*/
 	@Id
@@ -68,7 +68,7 @@ public class ReservationEmail {
 		this.reminderTime = reminderTime;
 	}
 
-	public ReservationEmail() {
+	public ReminderEmail() {
 		super();
 	}
 	
@@ -81,7 +81,7 @@ public class ReservationEmail {
 				+ ", reminderTime=" + reminderTime + ", reminder_date=" + reminder_date + "]";
 	}
 
-	public ReservationEmail(int reservationId, String email, LocalDateTime startTime, LocalDateTime endTime,
+	public ReminderEmail(int reservationId, String email, LocalDateTime startTime, LocalDateTime endTime,
 			String buildingName, String resourceName, int reminderTime) {
 		super();
 		this.reservationId = reservationId;

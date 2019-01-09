@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.revature.model.ReservationEmail;
+import com.revature.model.ReminderEmail;
 
 /**
  * The Interface ReservationEmailRepository.
@@ -17,7 +17,7 @@ import com.revature.model.ReservationEmail;
  * @author 1811-Java-Nick | 01/07/2019
  */
 @Repository
-public interface ReservationEmailRepository extends JpaRepository<ReservationEmail,String> {
+public interface ReminderEmailRepository extends JpaRepository<ReminderEmail,String> {
 	/** The time now. */
 	static LocalDateTime timeNow = LocalDateTime.now();
 	/*
@@ -25,7 +25,7 @@ public interface ReservationEmailRepository extends JpaRepository<ReservationEma
 	 * from the Database.
 	 * 
 	 */
-	List<ReservationEmail> findAll();
+	List<ReminderEmail> findAll();
 
 	/**
 	 * Find all reservation email by time(now).
@@ -33,6 +33,6 @@ public interface ReservationEmailRepository extends JpaRepository<ReservationEma
 	 * @param timeNow the time now
 	 * @return the list of reservationEmails but filtered.
 	 */
-	@Query(value = "SELECT r FROM ReservationEmail r WHERE r.reminder_date <= :timeNow")
-	List<ReservationEmail> findAllByTime(@Param("timeNow") LocalDateTime timeNow);
+	@Query(value = "SELECT r FROM ReminderEmail r WHERE r.reminder_date <= :timeNow")
+	List<ReminderEmail> findAllByTime(@Param("timeNow") LocalDateTime timeNow);
 }
