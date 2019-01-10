@@ -36,7 +36,7 @@ public class ReminderEmailController {
 	 * @param reminderEmail the reservation email
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	@PostMapping("newReminder")
+	@PostMapping("newreminder")
 	public void sendNewEmailObject(@RequestBody ReminderEmail reminderEmail) throws IOException {
 		
 		/* Sets the reminder date either an hour before or a day before*/
@@ -45,7 +45,6 @@ public class ReminderEmailController {
 		}else {
 			reminderEmail.setReminder_date(reminderEmail.getStartTime().minus(1,ChronoUnit.DAYS));
 		}
-		
 		/*Sends the ReservationEmail Object to the EmailRepositoryService
 		 * service that will save it to the Database*/
 		emailRepositoryService.saveNewEmail(reminderEmail);

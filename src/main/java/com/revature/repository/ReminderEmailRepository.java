@@ -18,6 +18,7 @@ import com.revature.model.ReminderEmail;
  */
 @Repository
 public interface ReminderEmailRepository extends JpaRepository<ReminderEmail,String> {
+	
 	/** The time now. */
 	static LocalDateTime timeNow = LocalDateTime.now();
 	/*

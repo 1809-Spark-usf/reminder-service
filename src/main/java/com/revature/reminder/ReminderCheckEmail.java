@@ -27,7 +27,7 @@ import com.revature.service.EmailRepositoryService;
 @Service
 public class ReminderCheckEmail {
 	
-	/** The email uri. */
+	/** The email uri.*/
 	@Value("${RMS_EMAIL_URL:http://localhost:8080/email/}")
 	String emailUri;
 	
@@ -35,8 +35,7 @@ public class ReminderCheckEmail {
 	@Autowired
 	EmailRepositoryService emailRepositoryService;
 	
-	/** The i. */
-	public Integer i = 0;
+
 	
 	/**
 	 * Check for appointment.
@@ -49,14 +48,14 @@ public class ReminderCheckEmail {
 	@Scheduled(cron = "0 0/1 8-17 ? * 1-6")
 	public void checkForAppointment() {
 		
-		/* goes to the repository service to get all items in the database */
+		/* goes to the repository service to get all reminders that need to be sent */
 		List<ReminderEmail> emails= emailRepositoryService.getAllByTime(LocalDateTime.now());
-		System.out.println(emails);
 		
-		/* Displays how many time this has run */
-		System.out.println("lets se if it checks every minute "+ i++);
-		
-		sendEmailToEmailService(emails);
+		/* sends the reminder object one by one to the email service */
+		Iterator<ReminderEmail> i = emails.iterator();
+		while(i.hasNext()) {
+			sendEmailToEmailService(i.next());
+		}
 	}
 	
 	/**
@@ -69,17 +68,13 @@ public class ReminderCheckEmail {
 	 * @param reminderEmail the reservation email
 	 */
 	@HystrixCommand(fallbackMethod = "emailFallback")
-	public void sendEmailToEmailService(List<ReminderEmail> reminderEmail) {
+	public void sendEmailToEmailService(ReminderEmail reminderEmail) {
 		
-		Iterator<ReminderEmail> i = reminderEmail.iterator();
-		
-		while(i.hasNext()) {
-			/*sends the reminder object to the the email microservice */
-			new RestTemplate().postForLocation(URI.create(emailUri + "sendreminder"), i.next());
-			/* Deletes the entity from the database because the email has been sent*/
-			deleteSentEmailObject(i.next());
-		}
-		
+			/* Creates the rest template to send the object to that URL (AKA email service) */
+			new RestTemplate().postForLocation(URI.create(emailUri + "sendreminder"), reminderEmail);
+			
+			/* Sends the object to a delete method because the reminder has been sent */
+			deleteSentEmailObject(reminderEmail);
 	}
 	
 	/**
@@ -94,11 +89,15 @@ public class ReminderCheckEmail {
 	
 	/**
 	 * Delete sent email object.
+	 * Goes to the repository service
+	 * and deletes the reminder object
+	 * from the database so it wont be
+	 * sent again.
 	 *
 	 * @param reservation the reservation
 	 */
 	public void deleteSentEmailObject(ReminderEmail reservation) {
-		/* Deletes the entity from the database because the email has been sent*/
+
 		emailRepositoryService.deleteReminder(reservation);
 	}
 	

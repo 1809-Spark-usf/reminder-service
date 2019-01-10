@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.revature.model.ReminderEmail;
 import com.revature.repository.ReminderEmailRepository;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class EmailRepositoryService.
  * Service design only to talk directly 
@@ -63,7 +64,14 @@ public class EmailRepositoryService {
 		return reminderEmailRepository.findAllByTime(localDateTime);
 	}
 
+	/**
+	 * Delete reminder.
+	 * delete the object from the database.
+	 * 
+	 * @param reminderEmail the reminder email
+	 */
 	public void deleteReminder(ReminderEmail reminderEmail) {
+		
 		reminderEmailRepository.delete(reminderEmail);
 		
 	}
