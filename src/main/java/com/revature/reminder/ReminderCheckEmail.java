@@ -34,9 +34,7 @@ public class ReminderCheckEmail {
 	/** The reservation email repository. */
 	@Autowired
 	EmailRepositoryService emailRepositoryService;
-	
 
-	
 	/**
 	 * Check for appointment.
 	 * A method with a cron scheduler that
@@ -78,16 +76,6 @@ public class ReminderCheckEmail {
 	}
 	
 	/**
-	 * Email fallback.
-	 *
-	 * @param reservation the reservation
-	 */
-	@SuppressWarnings("unused")
-	private void emailFallback(ReminderEmail reservation) {
-	}
-	
-	
-	/**
 	 * Delete sent email object.
 	 * Goes to the repository service
 	 * and deletes the reminder object
@@ -99,6 +87,15 @@ public class ReminderCheckEmail {
 	public void deleteSentEmailObject(ReminderEmail reservation) {
 
 		emailRepositoryService.deleteReminder(reservation);
+	}
+	
+	/**
+	 * Email fallback.
+	 *
+	 * @param reservation the reservation
+	 */
+	@SuppressWarnings("unused")
+	private void emailFallback(ReminderEmail reservation) {
 	}
 	
 }
