@@ -27,7 +27,7 @@ import com.revature.service.EmailRepositoryService;
 @Service
 public class ReminderCheckEmail {
 	
-	/** The email uri.*/
+	/** The email URI.*/
 	@Value("${RMS_EMAIL_URL:http://localhost:8080/email/}")
 	String emailUri;
 	
@@ -68,11 +68,11 @@ public class ReminderCheckEmail {
 	@HystrixCommand(fallbackMethod = "emailFallback")
 	public void sendEmailToEmailService(ReminderEmail reminderEmail) {
 		
-			/* Creates the rest template to send the object to that URL (AKA email service) */
-			new RestTemplate().postForLocation(URI.create(emailUri + "sendreminder"), reminderEmail);
+		/* Creates the rest template to send the object to that URL (AKA email service) */
+		new RestTemplate().postForLocation(URI.create(emailUri + "sendreminder"), reminderEmail);
 			
-			/* Sends the object to a delete method because the reminder has been sent */
-			deleteSentEmailObject(reminderEmail);
+		/* Sends the object to a delete method because the reminder has been sent */
+		deleteSentEmailObject(reminderEmail);
 	}
 	
 	/**
@@ -96,6 +96,7 @@ public class ReminderCheckEmail {
 	 */
 	@SuppressWarnings("unused")
 	private void emailFallback(ReminderEmail reservation) {
+		
 	}
 	
 }

@@ -46,6 +46,7 @@ public class ReminderEmailController {
 		 * service that will save it to the Database*/
 		emailRepositoryService.saveNewEmail(reminderEmail);
 	}
+	
 	/**
 	 * Cancel email object.
 	 * Gets the ReservationEmail Object from the 
@@ -83,11 +84,11 @@ public class ReminderEmailController {
 	public LocalDateTime setReminderDate(LocalDateTime startTime, int reminderHour) {
 		
 		if(reminderHour==1) {
-			
+			/* Subtract one hour of the start date*/
 			return startTime.minus(1,ChronoUnit.HOURS);
 			
 		} else {
-			
+			/* Subtract one day of the start date*/
 			return startTime.minus(1,ChronoUnit.DAYS);
 		}
 		

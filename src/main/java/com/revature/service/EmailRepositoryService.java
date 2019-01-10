@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.revature.model.ReminderEmail;
 import com.revature.repository.ReminderEmailRepository;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class EmailRepositoryService.
  * Service design only to talk directly 
@@ -35,6 +34,7 @@ public class EmailRepositoryService {
 	 * @param reminderEmail the reservation email object
 	 */
 	public void saveNewEmail(ReminderEmail reminderEmail) {
+		
 		reminderEmailRepository.save(reminderEmail);
 	}
 	
