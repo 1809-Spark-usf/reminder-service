@@ -40,7 +40,7 @@ public class ReminderEmailController {
 	public void sendNewEmailObject(@RequestBody ReminderEmail reminderEmail) throws IOException {
 		
 		/* Sets the reminder date either an hour before or a day before*/
-		reminderEmail.setReminder_date(setReminderDate(reminderEmail.getStartTime(), reminderEmail.getReminderTime()));
+		reminderEmail.setReminderDate(setReminderDate(reminderEmail.getStartTime(), reminderEmail.getReminderTime()));
 
 		/*Sends the ReservationEmail Object to the EmailRepositoryService
 		 * service that will save it to the Database*/
@@ -63,11 +63,39 @@ public class ReminderEmailController {
 	public void cancelEmailObject(@RequestBody ReminderEmail reminderEmail) throws IOException {
 		
 		/* Sets the reminder date either an hour before or a day before*/
-		reminderEmail.setReminder_date(setReminderDate(reminderEmail.getStartTime(), reminderEmail.getReminderTime()));
+		reminderEmail.setReminderDate(setReminderDate(reminderEmail.getStartTime(), reminderEmail.getReminderTime()));
 		
 		/*Sends the ReservationEmail Object to the EmailRepositoryService
 		 * service that will save it to the Database*/
 		emailRepositoryService.deleteReminder(reminderEmail);
+	}
+	
+	/**
+	 * Update email object.
+	 * Gets the ReservationEmail Object from the 
+	 * Email microservice. Then update an entity
+	 * with the same id.
+	 * 
+	 * @param reminderEmail the reservation email
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	@PostMapping("updatereminder")
+	public void updateEmailObject(@RequestBody ReminderEmail reminderEmail) throws IOException {
+		
+		/* Find the entity with the same ID*/
+		ReminderEmail updateReminder = emailRepositoryService.getTheReminder(reminderEmail.getReservationId());
+		
+		/* Set all values that might of changed */
+		updateReminder.setBuildingName(reminderEmail.getBuildingName());
+		updateReminder.setResourceName(reminderEmail.getResourceName());
+		updateReminder.setReminderTime(reminderEmail.getReminderTime());
+		updateReminder.setStartTime(reminderEmail.getStartTime());
+		updateReminder.setEndTime(reminderEmail.getEndTime());
+		updateReminder.setReminderDate(setReminderDate(reminderEmail.getStartTime(), reminderEmail.getReminderTime()));
+		
+		/* update the entity that has been updated */
+		emailRepositoryService.updateReminder(updateReminder);
+		
 	}
 	
 	/**

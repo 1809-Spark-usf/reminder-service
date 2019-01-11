@@ -22,9 +22,7 @@ public class EmailRepositoryService {
 	/** The reservation email repository. */
 	@Autowired
 	ReminderEmailRepository reminderEmailRepository;
-	
 
-	
 	/**
 	 * Save new email.
 	 * Grabs a reservation email object from
@@ -74,6 +72,31 @@ public class EmailRepositoryService {
 		
 		reminderEmailRepository.delete(reminderEmail);
 		
+	}
+	/**
+	 * Update reminder.
+	 * update an entity in the database with new information.
+	 * 
+	 * @param reminderEmail the reminder email
+	 */
+	public void updateReminder(ReminderEmail reminderEmail) {
+		/*.save is a dual purposed method for Insert as well as Update
+		 * so i could use the saveNewEmail method to save but I created a
+		 * new method just to know what its actually doing*/
+		reminderEmailRepository.save(reminderEmail);
+		
+	}
+	/**
+	 * Get the reminder email by ID
+	 * find the reminder email by the
+	 * ID.
+	 * 
+	 * @param the reminder email ID.
+	 * @return reminder email object.
+	 */
+	public ReminderEmail getTheReminder(int reservationId) {
+
+		return reminderEmailRepository.getReminderById(reservationId);
 	}
 
 }

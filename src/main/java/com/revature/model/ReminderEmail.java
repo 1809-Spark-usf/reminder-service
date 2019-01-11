@@ -16,12 +16,12 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="Reservation_Email")
+@Table(name="ReservationEmail")
 public class ReminderEmail {
 	
 	/**The id of the reservation for reminder purposes*/
 	@Id
-	@Column(name="reservation_id")
+	@Column(name="reservationId")
 	private int reservationId;
 	
 	/**The email of the user making the reservation*/
@@ -29,35 +29,35 @@ public class ReminderEmail {
 	private String email;
 	
 	/**The start time of the reservation*/
-	@Column(name="start_time")
+	@Column(name="startTime")
 	private LocalDateTime startTime;
 	
 	/**The end time of the reservation*/
-	@Column(name="end_time")
+	@Column(name="endTime")
 	private LocalDateTime endTime;
 	
 	/**The building name the reservation is taking place in*/
-	@Column(name="building_name")
+	@Column(name="buildingName")
 	private String buildingName;
 	
 	/**The resource name associated with the building*/
-	@Column(name="resource_name")
+	@Column(name="resourceName")
 	private String resourceName;
 	
 	/**The time before the startTime that the user wants a reminder*/
-	@Column(name="reminder_time")
+	@Column(name="reminderTime")
 	private int reminderTime;
 	
 	/**The start time of the reservation*/
-	@Column(name="reminder_date")
-	private LocalDateTime reminder_date;
+	@Column(name="reminderDate")
+	private LocalDateTime reminderDate;
 
-	public LocalDateTime getReminder_date() {
-		return reminder_date;
+	public LocalDateTime getReminderDate() {
+		return reminderDate;
 	}
 
-	public void setReminder_date(LocalDateTime reminder_date) {
-		this.reminder_date = reminder_date;
+	public void setReminderDate(LocalDateTime reminderDate) {
+		this.reminderDate = reminderDate;
 	}
 
 	public int getReminderTime() {
@@ -78,7 +78,7 @@ public class ReminderEmail {
 	public String toString() {
 		return "ReservationEmail [reservationId=" + reservationId + ", email=" + email + ", startTime=" + startTime
 				+ ", endTime=" + endTime + ", buildingName=" + buildingName + ", resourceName=" + resourceName
-				+ ", reminderTime=" + reminderTime + ", reminder_date=" + reminder_date + "]";
+				+ ", reminderTime=" + reminderTime + ", reminderDate=" + reminderDate + "]";
 	}
 
 	public ReminderEmail(int reservationId, String email, LocalDateTime startTime, LocalDateTime endTime,

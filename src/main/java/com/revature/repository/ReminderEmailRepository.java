@@ -32,6 +32,17 @@ public interface ReminderEmailRepository extends JpaRepository<ReminderEmail,Str
 	 * @param timeNow the time now
 	 * @return the list of reservationEmails but filtered.
 	 */
-	@Query(value = "SELECT r FROM ReminderEmail r WHERE r.reminder_date <= :timeNow")
+	@Query(value = "SELECT r FROM ReminderEmail r WHERE r.reminderDate <= :timeNow")
 	List<ReminderEmail> findAllByTime(@Param("timeNow") LocalDateTime timeNow);
+	
+	/**
+	 * Find the entity with the same ID.
+	 *
+	 * @param reservationId the ID of the entity
+	 * @return the reminder email
+	 */
+	@Query(value = "SELECT r FROM ReminderEmail r WHERE r.reservationId = :ID")
+	ReminderEmail getReminderById(@Param("ID")int reservationId);
+	
+	
 }
