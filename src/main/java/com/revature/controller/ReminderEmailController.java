@@ -38,7 +38,6 @@ public class ReminderEmailController {
 	 */
 	@PostMapping("newreminder")
 	public void sendNewEmailObject(@RequestBody ReminderEmail reminderEmail) throws IOException {
-		
 		/* Sets the reminder date either an hour before or a day before*/
 		reminderEmail.setReminderDate(setReminderDate(reminderEmail.getStartTime(), reminderEmail.getReminderTime()));
 

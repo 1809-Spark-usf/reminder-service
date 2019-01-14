@@ -48,7 +48,7 @@ public class ReminderCheckEmail {
 		
 		/* goes to the repository service to get all reminders that need to be sent */
 		List<ReminderEmail> emails= emailRepositoryService.getAllByTime(LocalDateTime.now());
-		
+
 		/* sends the reminder object one by one to the email service */
 		Iterator<ReminderEmail> i = emails.iterator();
 		while(i.hasNext()) {
